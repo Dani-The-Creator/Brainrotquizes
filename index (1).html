@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brainrotquizes - Test Your Knowledge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .quiz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .option:hover {
+            background-color: #f0f9ff;
+        }
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans">
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-brain text-3xl"></i>
+                    <h1 class="text-2xl md:text-3xl font-bold">Brainrotquizes</h1>
+                </div>
+                <div>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-indigo-500 transition">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Home Page -->
+        <div id="home-page">
+            <section class="mb-12 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Test Your Knowledge</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Challenge yourself with our collection of brain-teasing quizzes. From science to pop culture, we've got something for everyone!
+                </p>
+            </section>
+
+            <section>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">Featured Quizzes</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Quiz Cards -->
+                    <div class="quiz-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300 cursor-pointer" onclick="loadQuiz('science')">
+                        <div class="h-40 bg-blue-500 flex items-center justify-center">
+                            <i class="fas fa-atom text-6xl text-white opacity-90"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Science Trivia</h4>
+                            <p class="text-gray-600">10 questions about physics, chemistry, and biology</p>
+                            <div class="mt-4 flex items-center text-sm text-gray-500">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span>4.8</span>
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-question-circle mr-1"></i>
+                                <span>10 questions</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300 cursor-pointer" onclick="loadQuiz('history')">
+                        <div class="h-40 bg-amber-500 flex items-center justify-center">
+                            <i class="fas fa-landmark text-6xl text-white opacity-90"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">World History</h4>
+                            <p class="text-gray-600">15 questions about ancient civilizations to modern events</p>
+                            <div class="mt-4 flex items-center text-sm text-gray-500">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span>4.5</span>
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-question-circle mr-1"></i>
+                                <span>15 questions</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300 cursor-pointer" onclick="loadQuiz('movies')">
+                        <div class="h-40 bg-purple-500 flex items-center justify-center">
+                            <i class="fas fa-film text-6xl text-white opacity-90"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Movie Buff Challenge</h4>
+                            <p class="text-gray-600">12 questions about classic and modern cinema</p>
+                            <div class="mt-4 flex items-center text-sm text-gray-500">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span>4.7</span>
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-question-circle mr-1"></i>
+                                <span>12 questions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-12">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">Coming Soon</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden opacity-70">
+                        <div class="h-40 bg-gray-300 flex items-center justify-center">
+                            <i class="fas fa-music text-6xl text-gray-500"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Music Legends</h4>
+                            <p class="text-gray-600">Test your knowledge of music history</p>
+                            <div class="mt-4 text-sm text-blue-500 font-medium">
+                                Coming next week
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden opacity-70">
+                        <div class="h-40 bg-gray-300 flex items-center justify-center">
+                            <i class="fas fa-gamepad text-6xl text-gray-500"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Video Games</h4>
+                            <p class="text-gray-600">From retro classics to modern hits</p>
+                            <div class="mt-4 text-sm text-blue-500 font-medium">
+                                Coming soon
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Quiz Page (hidden by default) -->
+        <div id="quiz-page" class="hidden">
+            <div class="max-w-3xl mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <button onclick="goHome()" class="flex items-center text-indigo-600 hover:text-indigo-800">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        <span>Back to quizzes</span>
+                    </button>
+                    <div class="text-right">
+                        <div id="quiz-title" class="text-xl font-bold text-gray-800"></div>
+                        <div id="progress-text" class="text-sm text-gray-500">Question 1 of 10</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="progress-bar h-full bg-indigo-500" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <div id="question-container" class="bg-white rounded-xl shadow-md p-6 mb-6 fade-in">
+                    <h3 id="question-text" class="text-xl font-semibold text-gray-800 mb-6"></h3>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+
+                <div class="flex justify-between">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <i class="fas fa-arrow-left mr-2"></i>Previous
+                    </button>
+                    <button id="next-btn" onclick="nextQuestion()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                        Next<i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    <button id="submit-btn" onclick="submitQuiz()" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 hidden">
+                        Submit<i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Page (hidden by default) -->
+        <div id="results-page" class="hidden max-w-3xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Quiz Results</h2>
+                <div id="quiz-completed-title" class="text-xl text-indigo-600 font-medium mb-4"></div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <div class="flex flex-col items-center">
+                    <div class="relative w-40 h-40 mb-6">
+                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                            <circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
+                            <circle id="score-circle" class="text-indigo-600" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="0" stroke-linecap="round" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
+                        </svg>
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                            <span id="score-percent" class="text-3xl font-bold text-gray-800">0%</span>
+                        </div>
+                    </div>
+                    <h3 id="score-message" class="text-2xl font-bold text-gray-800 mb-2">Calculating...</h3>
+                    <p id="score-description" class="text-gray-600 mb-6 text-center max-w-md"></p>
+                    <button onclick="goHome()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                        <i class="fas fa-home mr-2"></i>Back to Home
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Your Answers</h3>
+                <div id="answers-review" class="space-y-4"></div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">More Quizzes</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white rounded-lg shadow p-4 flex items-center cursor-pointer hover:bg-gray-50" onclick="loadQuiz('history')">
+                        <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-landmark text-amber-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">World History</h4>
+                            <p class="text-sm text-gray-500">15 questions</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4 flex items-center cursor-pointer hover:bg-gray-50" onclick="loadQuiz('movies')">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-film text-purple-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Movie Buff Challenge</h4>
+                            <p class="text-sm text-gray-500">12 questions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-brain text-2xl"></i>
+                        <h2 class="text-xl font-bold">Brainrotquizes</h2>
+                    </div>
+                    <p class="text-gray-400 mt-2">Test your knowledge, one quiz at a time</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm">
+                <p>&copy; 2023 Brainrotquizes. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Quiz data
+        const quizzes = {
+            science: {
+                title: "Science Trivia",
+                questions: [
+                    {
+                        question: "What is the chemical symbol for gold?",
+                        options: ["Go", "Gd", "Au", "Ag"],
+                        answer: 2,
+                        explanation: "The chemical symbol for gold is Au, from the Latin word 'aurum' meaning gold."
+                    },
+                    {
+                        question: "Which planet is known as the Red Planet?",
+                        options: ["Venus", "Mars", "Jupiter", "Saturn"],
+                        answer: 1,
+                        explanation: "Mars is known as the Red Planet due to its reddish appearance caused by iron oxide on its surface."
+                    },
+                    {
+                        question: "What is the hardest natural substance on Earth?",
+                        options: ["Gold", "Iron", "Diamond", "Quartz"],
+                        answer: 2,
+                        explanation: "Diamond is the hardest known natural material on Earth, scoring 10 on the Mohs scale of mineral hardness."
+                    },
+                    {
+                        question: "Which gas do plants absorb from the atmosphere?",
+                        options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
+                        answer: 2,
+                        explanation: "Plants absorb carbon dioxide (CO₂) during photosynthesis to produce glucose and oxygen."
+                    },
+                    {
+                        question: "What is the largest organ in the human body?",
+                        options: ["Liver", "Brain", "Skin", "Heart"],
+                        answer: 2,
+                        explanation: "The skin is the largest organ of the human body, with an average surface area of about 20 square feet."
+                    }
+                ]
+            },
+            history: {
+                title: "World History",
+                questions: [
+                    {
+                        question: "In which year did World War II end?",
+                        options: ["1943", "1945", "1947", "1950"],
+                        answer: 1,
+                        explanation: "World War II ended in 1945 with the surrender of Germany in May and Japan in August."
+                    },
+                    {
+                        question: "Who was the first president of the United States?",
+                        options: ["Thomas Jefferson", "John Adams", "George Washington", "Benjamin Franklin"],
+                        answer: 2,
+                        explanation: "George Washington served as the first president of the United States from 1789 to 1797."
+                    },
+                    {
+                        question: "Which ancient civilization built the pyramids?",
+                        options: ["Greeks", "Romans", "Egyptians", "Mayans"],
+                        answer: 2,
+                        explanation: "The ancient Egyptians built the pyramids, most notably the Great Pyramid of Giza around 2560 BCE."
+                    },
+                    {
+                        question: "When was the Declaration of Independence signed?",
+                        options: ["1774", "1776", "1781", "1789"],
+                        answer: 1,
+                        explanation: "The Declaration of Independence was signed in 1776, declaring the 13 American colonies independent from Britain."
+                    },
+                    {
+                        question: "Which empire was ruled by Genghis Khan?",
+                        options: ["Ottoman Empire", "Mongol Empire", "Roman Empire", "British Empire"],
+                        answer: 1,
+                        explanation: "Genghis Khan founded and ruled the Mongol Empire, which became the largest contiguous empire in history."
+                    }
+                ]
+            },
+            movies: {
+                title: "Movie Buff Challenge",
+                questions: [
+                    {
+                        question: "Who directed the movie 'Inception'?",
+                        options: ["Steven Spielberg", "Christopher Nolan", "Martin Scorsese", "Quentin Tarantino"],
+                        answer: 1,
+                        explanation: "Christopher Nolan directed 'Inception' in 2010, starring Leonardo DiCaprio."
+                    },
+                    {
+                        question: "Which movie won the Academy Award for Best Picture in 2020?",
+                        options: ["Parasite", "1917", "Joker", "The Irishman"],
+                        answer: 0,
+                        explanation: "Parasite, directed by Bong Joon-ho, made history as the first non-English language film to win Best Picture."
+                    },
+                    {
+                        question: "What is the highest-grossing film of all time?",
+                        options: ["Titanic", "Avatar", "Avengers: Endgame", "Star Wars: The Force Awakens"],
+                        answer: 2,
+                        explanation: "As of 2023, Avengers: Endgame holds the record with a worldwide gross of nearly $2.8 billion."
+                    },
+                    {
+                        question: "Which actor played Jack Dawson in 'Titanic'?",
+                        options: ["Brad Pitt", "Tom Cruise", "Leonardo DiCaprio", "Matt Damon"],
+                        answer: 2,
+                        explanation: "Leonardo DiCaprio played Jack Dawson opposite Kate Winslet's Rose in the 1997 blockbuster 'Titanic'."
+                    },
+                    {
+                        question: "What was the first feature-length animated movie?",
+                        options: ["Snow White and the Seven Dwarfs", "Fantasia", "Bambi", "Pinocchio"],
+                        answer: 0,
+                        explanation: "Disney's 'Snow White and the Seven Dwarfs' (1937) was the first full-length cel-animated feature film."
+                    }
+                ]
+            }
+        };
+
+        // Quiz state
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let score = 0;
+
+        // DOM elements
+        const homePage = document.getElementById('home-page');
+        const quizPage = document.getElementById('quiz-page');
+        const resultsPage = document.getElementById('results-page');
+        const quizTitle = document.getElementById('quiz-title');
+        const progressText = document.getElementById('progress-text');
+        const progressBar = document.getElementById('progress-bar');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const quizCompletedTitle = document.getElementById('quiz-completed-title');
+        const scoreCircle = document.getElementById('score-circle');
+        const scorePercent = document.getElementById('score-percent');
+        const scoreMessage = document.getElementById('score-message');
+        const scoreDescription = document.getElementById('score-description');
+        const answersReview = document.getElementById('answers-review');
+        const themeToggle = document.getElementById('theme-toggle');
+
+        // Theme toggle
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+
+        // Load quiz function
+        function loadQuiz(quizId) {
+            currentQuiz = quizzes[quizId];
+            currentQuestionIndex = 0;
+            userAnswers = Array(currentQuiz.questions.length).fill(null);
+            
+            // Update UI
+            homePage.classList.add('hidden');
+            quizPage.classList.remove('hidden');
+            resultsPage.classList.add('hidden');
+            
+            quizTitle.textContent = currentQuiz.title;
+            updateQuestion();
+        }
+
+        // Update question display
+        function updateQuestion() {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            const totalQuestions = currentQuiz.questions.length;
+            
+            // Update progress
+            progressText.textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
+            progressBar.style.width = `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`;
+            
+            // Update question text
+            questionText.textContent = question.question;
+            
+            // Update options
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = `option p-4 border rounded-lg cursor-pointer transition ${userAnswers[currentQuestionIndex] === index ? 'bg-indigo-100 border-indigo-300' : 'border-gray-200 hover:border-indigo-200'}`;
+                optionElement.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-6 h-6 rounded-full border flex items-center justify-center mr-3 ${userAnswers[currentQuestionIndex] === index ? 'bg-indigo-500 border-indigo-500 text-white' : 'border-gray-300'}">
+                            ${String.fromCharCode(65 + index)}
+                        </div>
+                        <span>${option}</span>
+                    </div>
+                `;
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update buttons
+            prevBtn.disabled = currentQuestionIndex === 0;
+            
+            if (currentQuestionIndex === currentQuiz.questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        // Select option
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestionIndex] = optionIndex;
+            updateQuestion();
+        }
+
+        // Previous question
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateQuestion();
+            }
+        }
+
+        // Next question
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                currentQuestionIndex++;
+                updateQuestion();
+            }
+        }
+
+        // Submit quiz
+        function submitQuiz() {
+            // Calculate score
+            score = 0;
+            currentQuiz.questions.forEach((question, index) => {
+                if (userAnswers[index] === question.answer) {
+                    score++;
+                }
+            });
+            
+            const percentage = Math.round((score / currentQuiz.questions.length) * 100);
+            
+            // Update results page
+            quizCompletedTitle.textContent = currentQuiz.title;
+            scorePercent.textContent = `${percentage}%`;
+            
+            // Animate circle
+            const circumference = 251.2; // 2 * π * r (where r=40)
+            const offset = circumference - (percentage / 100) * circumference;
+            scoreCircle.style.strokeDashoffset = offset;
+            
+            // Set score message
+            if (percentage >= 80) {
+                scoreMessage.textContent = "Excellent!";
+                scoreMessage.className = "text-2xl font-bold text-green-600 mb-2";
+            } else if (percentage >= 60) {
+                scoreMessage.textContent = "Good Job!";
+                scoreMessage.className = "text-2xl font-bold text-blue-600 mb-2";
+            } else if (percentage >= 40) {
+                scoreMessage.textContent = "Not Bad!";
+                scoreMessage.className = "text-2xl font-bold text-amber-600 mb-2";
+            } else {
+                scoreMessage.textContent = "Keep Trying!";
+                scoreMessage.className = "text-2xl font-bold text-red-600 mb-2";
+            }
+            
+            scoreDescription.textContent = `You answered ${score} out of ${currentQuiz.questions.length} questions correctly.`;
+            
+            // Show answers review
+            answersReview.innerHTML = '';
+            currentQuiz.questions.forEach((question, index) => {
+                const isCorrect = userAnswers[index] === question.answer;
+                const answerElement = document.createElement('div');
+                answerElement.className = `bg-white rounded-lg shadow p-4 ${isCorrect ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}`;
+                
+                answerElement.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-medium">${index + 1}. ${question.question}</h4>
+                        <span class="px-2 py-1 text-xs rounded-full ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                            ${isCorrect ? 'Correct' : 'Incorrect'}
+                        </span>
+                    </div>
+                    <div class="mb-2">
+                        <p class="text-sm font-medium text-gray-700">Your answer: ${question.options[userAnswers[index]]}</p>
+                        ${!isCorrect ? `<p class="text-sm font-medium text-gray-700">Correct answer: ${question.options[question.answer]}</p>` : ''}
+                    </div>
+                    <div class="text-sm text-gray-600 bg-gray-50 p-2 rounded">
+                        <i class="fas fa-info-circle mr-1 text-blue-500"></i> ${question.explanation}
+                    </div>
+                `;
+                
+                answersReview.appendChild(answerElement);
+            });
+            
+            // Show results page
+            quizPage.classList.add('hidden');
+            resultsPage.classList.remove('hidden');
+        }
+
+        // Go back to home
+        function goHome() {
+            homePage.classList.remove('hidden');
+            quizPage.classList.add('hidden');
+            resultsPage.classList.add('hidden');
+        }
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=DaniTheCreator/brainrotquizes" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
